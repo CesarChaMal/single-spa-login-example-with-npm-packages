@@ -25,7 +25,7 @@ The login validation is harcoded in code and the credentials are:
 If you prefer run this application in localhost you must follow next steps:
 
 ```
-npm install
+npm install --legacy-peer-deps
 ```
 
 ```
