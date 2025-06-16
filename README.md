@@ -39,12 +39,12 @@ Finally you only have to open [http://localhost:8080](http://localhost:8080) in 
 
 This application is a root-application that inits a single-spa application that integrates several registered applications:
 
-- [single-spa-auth-app](https://github.com/jualoppaz/single-spa-auth-app)
-- [single-spa-layout-app](https://github.com/jualoppaz/single-spa-layout-app)
-- [single-spa-home-app](https://github.com/jualoppaz/single-spa-home-app)
-- [single-spa-angular-app](https://github.com/jualoppaz/single-spa-angular-app)
-- [single-spa-vue-app](https://github.com/jualoppaz/single-spa-vue-app)
-- [single-spa-react-app](https://github.com/jualoppaz/single-spa-react-app)
+- [single-spa-auth-app](https://github.com/cesarchamal/single-spa-auth-app)
+- [single-spa-layout-app](https://github.com/cesarchamal/single-spa-layout-app)
+- [single-spa-home-app](https://github.com/cesarchamal/single-spa-home-app)
+- [single-spa-angular-app](https://github.com/cesarchamal/single-spa-angular-app)
+- [single-spa-vue-app](https://github.com/cesarchamal/single-spa-vue-app)
+- [single-spa-react-app](https://github.com/cesarchamal/single-spa-react-app)
 
 ### <img src="https://vuejs.org/images/logo.png" width="25" height="25"> single-spa-auth-app
 
