@@ -6,19 +6,6 @@ import 'zone.js';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
-System.import = System.import || window.importShim;
-
-System.config({
-  map: {
-    'single-spa-auth-app': 'http://localhost:4201/single-spa-auth-app.js',
-    'single-spa-layout-app': 'http://localhost:4202/single-spa-layout-app.js',
-    'single-spa-home-app': 'http://localhost:4203/single-spa-home-app.js',
-    'single-spa-angular-app': 'http://localhost:4204/single-spa-angular-app.js',
-    'single-spa-vue-app': 'http://localhost:4205/single-spa-vue-app.js',
-    'single-spa-react-app': 'http://localhost:4206/single-spa-react-app.js',
-  },
-});
-
 function showWhenAnyOf(routes) {
   return function (location) {
     return routes.some((route) => location.pathname === route);

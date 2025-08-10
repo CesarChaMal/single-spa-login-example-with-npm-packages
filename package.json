@@ -4,24 +4,28 @@
   "description": "Single-spa application example which imports registered applications from NPM packages and manages authentication features as login.",
   "main": "root-application.js",
   "scripts": {
-    "serve": "cross-env NODE_OPTIONS=--openssl-legacy-provider webpack-dev-server",
-    "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider node server.js",
-    "concurrently": "concurrently \"npm install --legacy-peer-deps && npm run lint --prefix ../single-spa-auth-app\" \"npm install --legacy-peer-deps && npm run lint --prefix ../single-spa-layout-app\" \"npm install --legacy-peer-deps && npm run lint --prefix ../single-spa-home-app\" \"npm install --legacy-peer-deps && npm run lint --prefix ../single-spa-angular-app\"  \"npm install --legacy-peer-deps && npm run lint --prefix ../single-spa-vue-app\" \"npm install --legacy-peer-deps && npm run lint --prefix ../single-spa-react-app\"",
-    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider webpack --config webpack.config.js -p",
+    "bootstrap": "npm install && npm run bootstrap:apps",
+    "bootstrap:apps": "concurrently \"npm install --prefix ../single-spa-auth-app\" \"npm install --prefix ../single-spa-layout-app\" \"npm install --prefix ../single-spa-home-app\" \"npm install --prefix ../single-spa-angular-app\" \"npm install --prefix ../single-spa-vue-app\" \"npm install --prefix ../single-spa-react-app\"",
+    "lint-all": "concurrently \"npm run lint --prefix ../single-spa-auth-app\" \"npm run lint --prefix ../single-spa-layout-app\" \"npm run lint --prefix ../single-spa-home-app\" \"npm run lint --prefix ../single-spa-angular-app\" \"npm run lint --prefix ../single-spa-vue-app\" \"npm run lint --prefix ../single-spa-react-app\"",
+    "serve:apps": "concurrently -k -n \"AUTH,LAYOUT,HOME,ANG,VUE,REACT\" \"npm start --prefix ../single-spa-auth-app\" \"npm start --prefix ../single-spa-layout-app\" \"npm start --prefix ../single-spa-home-app\" \"npm run ng --prefix ../single-spa-angular-app -- serve --port 4204\" \"npm start --prefix ../single-spa-vue-app\" \"npm start --prefix ../single-spa-react-app\"",
+    "serve:root": "webpack-dev-server --hot --port 8080",
+    "serve": "concurrently -k -n \"ROOT,MFES\" \"npm run serve:root\" \"npm run serve:apps\"",
+    "build": "webpack --config webpack.config.js -p",
+    "start": "npm run build && node server.js",
     "heroku-postbuild": "npm run build",
     "lint": "eslint . --ext .js --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jualoppaz/single-spa-login-example-with-npm-packages.git"
+    "url": "git+https://github.com/cesarchamal/single-spa-login-example-with-npm-packages.git"
   },
   "author": "Juan Manuel López Pazos",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jualoppaz/single-spa-login-example-with-npm-packages/issues"
+    "url": "https://github.com/cesarchamal/single-spa-login-example-with-npm-packages/issues"
   },
-  "homepage": "https://github.com/jualoppaz/single-spa-login-example-with-npm-packages#readme",
+  "homepage": "https://github.com/cesarchamal/single-spa-login-example-with-npm-packages#readme",
   "devDependencies": {
     "@babel/core": "7.8.3",
     "babel-eslint": "10.0.3",
@@ -84,7 +88,7 @@
     "vue": "2.6.11",
     "vue-router": "3.1.4",
     "vue-toastr": "2.1.2",
-    "zone.js": "0.10.2",
+    "zone.js": "0.9.1",
     "@angular-builders/custom-webpack": "8.4.1",
     "@angular/common": "8.2.14",
     "@angular/compiler": "8.2.14",
@@ -96,7 +100,6 @@
     "rxjs": "6.4.0",
     "single-spa-angular": "3.1.0",
     "tslib": "1.10.0",
-    "zone.js": "0.9.1",
     "concurrently": "^6.0.0",
     "vue-cli-plugin-single-spa": "1.1.0",
     "eslint-config-airbnb": "18.2.1",
