@@ -5,16 +5,16 @@
   "main": "root-application.js",
   "scripts": {
     "bootstrap": "npm install && npm run bootstrap:apps",
-    "bootstrap:apps": "concurrently \"npm install --prefix ../single-spa-auth-app\" \"npm install --prefix ../single-spa-layout-app\" \"npm install --prefix ../single-spa-home-app\" \"npm install --prefix ../single-spa-angular-app\" \"npm install --prefix ../single-spa-vue-app\" \"npm install --prefix ../single-spa-react-app\"",
-    "lint-all": "concurrently \"npm run lint --prefix ../single-spa-auth-app\" \"npm run lint --prefix ../single-spa-layout-app\" \"npm run lint --prefix ../single-spa-home-app\" \"npm run lint --prefix ../single-spa-angular-app\" \"npm run lint --prefix ../single-spa-vue-app\" \"npm run lint --prefix ../single-spa-react-app\"",
-    "serve:apps": "concurrently -k -n \"AUTH,LAYOUT,HOME,ANG,VUE,REACT\" \"npm start --prefix ../single-spa-auth-app\" \"npm start --prefix ../single-spa-layout-app\" \"npm start --prefix ../single-spa-home-app\" \"npm run ng --prefix ../single-spa-angular-app -- serve --port 4204\" \"npm start --prefix ../single-spa-vue-app\" \"npm start --prefix ../single-spa-react-app\"",
-    "serve:root": "webpack-dev-server --hot --port 8080",
-    "serve": "concurrently -k -n \"ROOT,MFES\" \"npm run serve:root\" \"npm run serve:apps\"",
-    "build": "webpack --config webpack.config.js -p",
-    "start": "npm run build && node server.js",
-    "heroku-postbuild": "npm run build",
-    "lint": "eslint . --ext .js --fix",
-    "test": "echo \"Error: no test specified\" && exit 1"
+	"bootstrap:apps": "concurrently -k -n \"AUTH,LAYOUT,HOME,ANG,VUE,REACT\" \"(cd ../single-spa-auth-app && npm install)\" \"(cd ../single-spa-layout-app && npm install)\" \"(cd ../single-spa-home-app && npm install)\" \"(cd ../single-spa-angular-app && npm install)\" \"(cd ../single-spa-vue-app && npm install)\" \"(cd ../single-spa-react-app && npm install)\"",
+	"lint-all": "concurrently -k -n \"AUTH,LAYOUT,HOME,ANG,VUE,REACT\" \"npm run lint --prefix ../single-spa-auth-app\" \"npm run lint --prefix ../single-spa-layout-app\" \"npm run lint --prefix ../single-spa-home-app\" \"npm run lint --prefix ../single-spa-angular-app\" \"npm run lint --prefix ../single-spa-vue-app\" \"npm run lint --prefix ../single-spa-react-app\"",
+	"serve:apps": "concurrently -k -n \"AUTH,LAYOUT,HOME,ANG,VUE,REACT\" \"(cd ../single-spa-auth-app && npm start)\" \"(cd ../single-spa-layout-app && npm start)\" \"(cd ../single-spa-home-app && npm start)\" \"(cd ../single-spa-angular-app && npx ng serve --port 4204)\" \"(cd ../single-spa-vue-app && npm start)\" \"(cd ../single-spa-react-app && npm start)\"",
+	"serve:root": "webpack-dev-server --hot --port 8080",
+	"serve": "concurrently -k -n \"ROOT,MFES\" \"npm run serve:root\" \"npm run serve:apps\"",
+	"build": "webpack --config webpack.config.js -p",
+	"start": "npm run build && node server.js",
+	"heroku-postbuild": "npm run build",
+	"lint": "eslint . --ext .js --fix",
+	"test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
