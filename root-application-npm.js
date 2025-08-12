@@ -1,3 +1,5 @@
+/* eslint-env browser */
+/* global System */
 /* eslint-disable no-unused-vars */
 /* eslint-disable func-names */
 import * as singleSpa from 'single-spa';

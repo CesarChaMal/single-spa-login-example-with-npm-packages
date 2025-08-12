@@ -1,3 +1,5 @@
+/* eslint-env browser */
+/* global System */
 import * as singleSpa from 'single-spa';
 import 'zone.js';
 import 'bootstrap/dist/css/bootstrap.css';

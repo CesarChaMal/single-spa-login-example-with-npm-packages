@@ -5,16 +5,17 @@
   "main": "root-application.js",
   "scripts": {
     "bootstrap": "npm install && npm run bootstrap:apps",
-	"bootstrap:apps": "concurrently -k -n \"AUTH,LAYOUT,HOME,ANG,VUE,REACT\" \"(cd ../single-spa-auth-app && npm install)\" \"(cd ../single-spa-layout-app && npm install)\" \"(cd ../single-spa-home-app && npm install)\" \"(cd ../single-spa-angular-app && npm install)\" \"(cd ../single-spa-vue-app && npm install)\" \"(cd ../single-spa-react-app && npm install)\"",
-	"lint-all": "concurrently -k -n \"AUTH,LAYOUT,HOME,ANG,VUE,REACT\" \"npm run lint --prefix ../single-spa-auth-app\" \"npm run lint --prefix ../single-spa-layout-app\" \"npm run lint --prefix ../single-spa-home-app\" \"npm run lint --prefix ../single-spa-angular-app\" \"npm run lint --prefix ../single-spa-vue-app\" \"npm run lint --prefix ../single-spa-react-app\"",
-	"serve:apps": "concurrently -k -n \"AUTH,LAYOUT,HOME,ANG,VUE,REACT\" \"(cd ../single-spa-auth-app && npm start)\" \"(cd ../single-spa-layout-app && npm start)\" \"(cd ../single-spa-home-app && npm start)\" \"(cd ../single-spa-angular-app && npx ng serve --port 4204)\" \"(cd ../single-spa-vue-app && npm start)\" \"(cd ../single-spa-react-app && npm start)\"",
-	"serve:root": "webpack-dev-server --hot --port 8080",
-	"serve": "concurrently -k -n \"ROOT,MFES\" \"npm run serve:root\" \"npm run serve:apps\"",
-	"build": "webpack --config webpack.config.js -p",
-	"start": "npm run build && node server.js",
-	"heroku-postbuild": "npm run build",
-	"lint": "eslint . --ext .js --fix",
-	"test": "echo \"Error: no test specified\" && exit 1"
+    "bootstrap:apps": "concurrently --kill-others-on-fail -n AUTH,LAYOUT,HOME,ANG,VUE,REACT \"npm --prefix ../single-spa-auth-app install\" \"npm --prefix ../single-spa-layout-app install\" \"npm --prefix ../single-spa-home-app install\" \"npm --prefix ../single-spa-angular-app install\" \"npm --prefix ../single-spa-vue-app install\" \"npm --prefix ../single-spa-react-app install\"",
+    "dev:build:apps": "concurrently --kill-others-on-fail -n AUTH-B,LAYOUT-B,HOME-B,ANG-B,VUE-B,REACT-B \"npm --prefix ../single-spa-auth-app run build -- --mode development\" \"npm --prefix ../single-spa-layout-app run build -- --mode development\" \"npm --prefix ../single-spa-home-app run build -- --mode development --watch\" \"npm --prefix ../single-spa-angular-app run build:single-spa -- --watch\" \"npm --prefix ../single-spa-vue-app run build -- --mode development\" \"npm --prefix ../single-spa-react-app run build -- --mode development --watch\"",
+    "dev:serve:apps": "concurrently --kill-others-on-fail -n AUTH-S,LAYOUT-S,HOME-S,ANG-S,VUE-S,REACT-S \"npx http-server ../single-spa-auth-app/dist -p 4201 -c-1 --cors\" \"npx http-server ../single-spa-layout-app/dist -p 4202 -c-1 --cors\" \"npx http-server ../single-spa-home-app/dist -p 4203 -c-1 --cors\" \"npx http-server ../single-spa-angular-app/dist -p 4204 -c-1 --cors\" \"npx http-server ../single-spa-vue-app/dist -p 4205 -c-1 --cors\" \"npx http-server ../single-spa-react-app/dist -p 4206 -c-1 --cors\"",
+    "serve:root": "webpack-dev-server --hot --port 8080",
+    "serve": "concurrently --kill-others-on-fail -n \"ROOT,BUILD,SERVE-MFES\" \"npm run serve:root\" \"npm run dev:build:apps\" \"npm run dev:serve:apps\"",
+    "build:apps": "concurrently --kill-others-on-fail -n AUTH,LAYOUT,HOME,ANG,VUE,REACT \"npm --prefix ../single-spa-auth-app run build\" \"npm --prefix ../single-spa-layout-app run build\" \"npm --prefix ../single-spa-home-app run build\" \"npm --prefix ../single-spa-angular-app run build:single-spa\" \"npm --prefix ../single-spa-vue-app run build\" \"npm --prefix ../single-spa-react-app run build\"",
+    "build": "webpack --config webpack.config.js -p",
+    "lint-all:strict": "concurrently --kill-others-on-fail -n AUTH,LAYOUT,HOME,ANG,VUE,REACT \"npm --prefix ../single-spa-auth-app run lint\" \"npm --prefix ../single-spa-layout-app run lint\" \"npm --prefix ../single-spa-home-app run lint\" \"npm --prefix ../single-spa-angular-app run lint\" \"npm --prefix ../single-spa-vue-app run lint\" \"npm --prefix ../single-spa-react-app run lint\"",
+    "lint-all:loose": "concurrently -n AUTH,LAYOUT,HOME,ANG,VUE,REACT \"npm --prefix ../single-spa-auth-app run lint || exit 0\" \"npm --prefix ../single-spa-layout-app run lint || exit 0\" \"npm --prefix ../single-spa-home-app run lint || exit 0\" \"npm --prefix ../single-spa-angular-app run lint || exit 0\" \"npm --prefix ../single-spa-vue-app run lint || exit 0\" \"npm --prefix ../single-spa-react-app run lint || exit 0\"",
+    "start": "npm run build:apps && npm run build && node server.js",
+    "lint": "eslint . --ext .js --fix"
   },
   "repository": {
     "type": "git",
